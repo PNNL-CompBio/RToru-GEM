@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: PNNL-CompBio/CONCERTO
-        path: './'
+        path: 'concerto_path'
 
     - name: Set up Python 3
       uses: actions/setup-python@v2
@@ -34,11 +34,13 @@ jobs:
         echo "other-repo=gh-pages-repo" >> $GITHUB_ENV
         echo "custom_tests=rtoru/custom_tests" >> $GITHUB_ENV
         echo "MEMOTE_LOCATION=sqlite:///results.db" >> $GITHUB_ENV
-        echo "PYTHONPATH=$PYTHONPATH:CONCERTO" >> $GITHUB_ENV
+        echo "PYTHONPATH=$PYTHONPATH:concerto_path" >> $GITHUB_ENV
 
 
     - name: Memote short run
       run: |
+        ls
+        pwd
         git checkout gh-pages
         git checkout ${{ github.ref_name }}
         memote run --custom-tests=${{ env.custom_tests }} --skip-unchanged
