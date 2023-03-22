@@ -46,7 +46,7 @@ jobs:
         pwd
         git checkout gh-pages
         git checkout ${{ github.ref_name }}
-        memote run --custom-tests=${{ env.custom_tests }} --skip-unchanged
+        memote run --custom-tests=${{ env.custom_tests }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
