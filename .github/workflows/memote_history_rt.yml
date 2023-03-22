@@ -11,6 +11,12 @@ jobs:
     - name: Checkout RHODO model
       uses: actions/checkout@v2
 
+    - name: Checkout concerto
+      uses: actions/checkout@v2
+      with:
+        repository: PNNL-CompBio/CONCERTO
+        path: './'
+
     - name: Set up Python 3
       uses: actions/setup-python@v2
       with:
@@ -30,24 +36,12 @@ jobs:
         echo "MEMOTE_LOCATION=sqlite:///results.db" >> $GITHUB_ENV
         echo "PYTHONPATH=$PYTHONPATH:CONCERTO" >> $GITHUB_ENV
 
-    - name: Checkout repo for gh-pages branch
-      uses: actions/checkout@v2
-      with:
-        repository: ${{ github.repository }}
-        ref: ${{ env.deployment }}
-        path: ${{ env.other-repo }}
-
-    - name: Checkout concerto
-      uses: actions/checkout@v2
-      with:
-        repository: PNNL-CompBio/CONCERTO
-        path: CONCERTO
 
     - name: Memote short run
       run: |
         git checkout gh-pages
         git checkout ${{ github.ref_name }}
-        memote run --custom-tests=${{ env.custom_tests }}
+        memote run --custom-tests=${{ env.custom_tests }} --skip-unchanged
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
