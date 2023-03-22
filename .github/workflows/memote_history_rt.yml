@@ -10,6 +10,8 @@ jobs:
 
     - name: Checkout RHODO model
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Checkout concerto
       uses: actions/checkout@v2
@@ -28,6 +30,7 @@ jobs:
     - name: Setup variables
       id: setup
       run: |
+
         echo "snapshot=snapshot_report.html" >> $GITHUB_ENV
         echo "history=history_report.html" >> $GITHUB_ENV
         echo "deployment=gh-pages" >> $GITHUB_ENV
