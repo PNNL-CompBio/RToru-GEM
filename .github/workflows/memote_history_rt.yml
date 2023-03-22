@@ -70,6 +70,6 @@ jobs:
         commit_message: "chore: update memote history report"
         file_pattern: "*_report.html"
         branch: gh-pages
-        repository: ${{ github.repository }}
+        repository: .
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
